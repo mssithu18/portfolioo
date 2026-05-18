@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sithu M.S | Modern Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#07111f;
+  --bg2:#0f1f36;
+  --glass:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.14);
+
+  --text:#ffffff;
+  --muted:#b7c4d8;
+
+  --blue:#72d7ff;
+  --orange:#ff9f5a;
+
+  --shadow:0 10px 40px rgba(0,0,0,0.35);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Outfit',sans-serif;
+  background:linear-gradient(135deg,#07111f,#102745,#07111f);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+  radial-gradient(circle at top left, rgba(114,215,255,0.15), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(255,159,90,0.15), transparent 30%);
+  z-index:-1;
+}
+
+/* CONTAINER */
+
+.container{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+/* GLASS */
+
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+
+/* NAVBAR */
+
+nav{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1100px,92%);
+  z-index:1000;
+  padding:18px 30px;
+  border-radius:22px;
+}
+
+.nav-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:1.4rem;
+  font-weight:800;
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.nav-links{
+  display:flex;
+  gap:30px;
+  list-style:none;
+}
+
+.nav-links a{
+  color:white;
+  text-decoration:none;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+  color:var(--blue);
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding-top:120px;
+}
+
+.hero-layout{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:60px;
+  align-items:center;
+}
+
+.hero-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 18px;
+  border-radius:100px;
+  margin-bottom:25px;
+  color:var(--blue);
+  font-size:0.9rem;
+}
+
+.hero-tag::before{
+  content:'';
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--orange);
+}
+
+.hero h1{
+  font-size:5rem;
+  line-height:1;
+  margin-bottom:25px;
+}
+
+.gradient-text{
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.line2{
+  color:#7d92ae;
+}
+
+.hero-sub{
+  color:var(--muted);
+  line-height:1.8;
+  font-size:1.05rem;
+  max-width:650px;
+  margin-bottom:35px;
+}
+
+/* BUTTONS */
+
+.hero-ctas{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.btn-primary,
+.btn-outline{
+  padding:16px 28px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.btn-primary{
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  color:white;
+}
+
+.btn-primary:hover{
+  transform:translateY(-4px);
+}
+
+.btn-outline{
+  border:1px solid rgba(255,255,255,0.14);
+  color:white;
+}
+
+.btn-outline:hover{
+  background:rgba(255,255,255,0.08);
+}
+
+/* STATS */
+
+.hero-stats{
+  display:flex;
+  gap:20px;
+  margin-top:40px;
+  flex-wrap:wrap;
+}
+
+.glass-stat{
+  padding:20px;
+  border-radius:20px;
+  min-width:160px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.stat-num{
+  font-size:2rem;
+  font-weight:800;
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:0.9rem;
+  margin-top:6px;
+}
+
+/* PROFILE */
+
+.profile-wrapper{
+  position:relative;
+}
+
+.profile-glow{
+  position:absolute;
+  inset:-20px;
+  background:linear-gradient(135deg,
+  rgba(114,215,255,0.25),
+  rgba(255,159,90,0.25));
+  filter:blur(40px);
+  border-radius:40px;
+}
+
+.profile-img{
+  width:100%;
+  position:relative;
+  border-radius:35px;
+  z-index:2;
+  border:1px solid rgba(255,255,255,0.12);
+}
+
+.floating-card{
+  position:absolute;
+  z-index:10;
+  padding:16px 20px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.card-one{
+  top:40px;
+  left:-40px;
+}
+
+.card-two{
+  bottom:40px;
+  right:-30px;
+}
+
+.floating-card h4{
+  margin-bottom:5px;
+}
+
+.floating-card p{
+  color:var(--muted);
+  font-size:0.85rem;
+}
+
+/* SECTION */
+
+section{
+  padding:110px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:70px;
+}
+
+.section-title h2{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.section-title p{
+  color:var(--muted);
+}
+
+/* ABOUT */
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+
+.about-card{
+  padding:40px;
+  border-radius:30px;
+}
+
+.about-card h3{
+  margin-bottom:20px;
+  font-size:1.5rem;
+}
+
+.about-card p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:25px;
+}
+
+.skill{
+  padding:10px 16px;
+  border-radius:100px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  font-size:0.9rem;
+}
+
+/* PROJECTS */
+
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:30px;
+}
+
+.project-card{
+  border-radius:30px;
+  overflow:hidden;
+  transition:0.4s;
+}
+
+.project-card:hover{
+  transform:translateY(-10px);
+}
+
+.project-image{
+  height:220px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:4rem;
+  background:linear-gradient(135deg,
+  rgba(114,215,255,0.15),
+  rgba(255,159,90,0.15));
+}
+
+.project-content{
+  padding:30px;
+}
+
+.project-content h3{
+  margin-bottom:15px;
+}
+
+.project-content p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:25px;
+}
+
+.tags span{
+  padding:8px 14px;
+  border-radius:100px;
+  background:rgba(255,255,255,0.06);
+  font-size:0.8rem;
+}
+
+.project-buttons{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.project-btn{
+  text-decoration:none;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:0.9rem;
+  font-weight:600;
+}
+
+.github-btn{
+  background:rgba(255,255,255,0.08);
+  color:white;
+}
+
+.netlify-btn{
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  color:white;
+}
+
+/* CONTACT */
+
+.contact-card{
+  padding:60px;
+  border-radius:35px;
+  text-align:center;
+}
+
+.contact-card h2{
+  font-size:3rem;
+  margin-bottom:20px;
+}
+
+.contact-card p{
+  color:var(--muted);
+  margin-bottom:35px;
+}
+
+.contact-links{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:20px;
+}
+
+.contact-links a{
+  text-decoration:none;
+  color:white;
+  padding:16px 24px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:0.3s;
+}
+
+.contact-links a:hover{
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+}
+
+/* FOOTER */
+
+footer{
+  padding:40px 0;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px){
+
+.hero-layout,
+.about-grid{
+  grid-template-columns:1fr;
+}
+
+.hero h1{
+  font-size:3.5rem;
+}
+
+.nav-links{
+  display:none;
+}
+
+}
+
+@media(max-width:600px){
+
+.hero h1{
+  font-size:2.8rem;
+}
+
+section{
+  padding:80px 0;
+}
+
+.contact-card{
+  padding:35px 20px;
+}
+
+.card-one{
+  left:0;
+}
+
+.card-two{
+  right:0;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+
+<nav class="glass">
+
+  <div class="nav-inner">
+
+    <div class="logo">
+      SITHU.
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+  </div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-layout">
+
+  <!-- LEFT -->
+
+  <div>
+
+    <div class="hero-tag glass">
+      Available for Freelance & Remote Work
+    </div>
+
+    <h1>
+      Creative <br>
+      <span class="gradient-text">
+        IT Admin
+      </span><br>
+      <span class="line2">
+        & Web Designer
+      </span>
+    </h1>
+
+    <p class="hero-sub">
+      Hi, I'm Sithu M.S — a modern IT Administrator and creative web developer from Tamil Nadu. I build premium websites, networking solutions, UI designs, automation workflows, and beautiful digital experiences.
+    </p>
+
+    <div class="hero-ctas">
+
+      <a href="#projects" class="btn-primary">
+        View Projects
+      </a>
+
+      <a href="mailto:mssithu18@gmail.com" class="btn-outline">
+        Hire Me
+      </a>
+
+    </div>
+
+    <div class="hero-stats">
+
+      <div class="glass-stat">
+        <div class="stat-num">1+</div>
+        <div class="stat-label">Year Experience</div>
+      </div>
+
+      <div class="glass-stat">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Projects</div>
+      </div>
+
+      <div class="glass-stat">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Design Works</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT -->
+
+  <div class="profile-wrapper">
+
+    <div class="profile-glow"></div>
+
+    <img
+      src="Gemini_Generated_Image_rn8gkqrn8gkqrn8g.png"
+      alt="Sithu"
+      class="profile-img"
+    >
+
+    <div class="floating-card card-one">
+      <h4>Web Designer</h4>
+      <p>Modern UI Expert</p>
+    </div>
+
+    <div class="floating-card card-two">
+      <h4>IT Admin</h4>
+      <p>Linux • Network • Support</p>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="container">
+
+<div class="section-title">
+<h2>About Me</h2>
+<p>Combining technology and creativity into modern digital experiences.</p>
+</div>
+
+<div class="about-grid">
+
+  <div class="about-card glass">
+
+    <h3>Who Am I?</h3>
+
+    <p>
+      I'm Sithu M.S., currently working as a Junior IT Administrator in Tamil Nadu. I manage networking, troubleshooting, Linux systems, hardware support, and infrastructure maintenance.
+      <br><br>
+      Alongside IT administration, I create modern websites, UI/UX designs, Photoshop works, branding, and AI-assisted workflows.
+    </p>
+
+  </div>
+
+  <div class="about-card glass">
+
+    <h3>Skills</h3>
+
+    <div class="skills">
+
+      <span class="skill">HTML</span>
+      <span class="skill">CSS</span>
+      <span class="skill">JavaScript</span>
+      <span class="skill">PHP</span>
+      <span class="skill">Python</span>
+      <span class="skill">Linux</span>
+      <span class="skill">Networking</span>
+      <span class="skill">Photoshop</span>
+      <span class="skill">AI Prompting</span>
+      <span class="skill">UI/UX</span>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+<div class="container">
+
+<div class="section-title">
+<h2>Featured Projects</h2>
+<p>Modern projects designed and developed completely by me.</p>
+</div>
+
+<div class="projects-grid">
+
+  <!-- PROJECT -->
+
+  <div class="project-card glass">
+
+    <div class="project-image">
+      📚
+    </div>
+
+    <div class="project-content">
+
+      <h3>Online Library Reader</h3>
+
+      <p>
+        Modern online book reading platform with search functionality, user system, responsive design, and PHP backend integration.
+      </p>
+
+      <div class="tags">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+        <span>PHP</span>
+      </div>
+
+      <div class="project-buttons">
+
+        <a href="https://github.com/mssithu18"
+        target="_blank"
+        class="project-btn github-btn">
+          GitHub
+        </a>
+
+        <a href="https://your-project.netlify.app"
+        target="_blank"
+        class="project-btn netlify-btn">
+          Live Demo
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PROJECT -->
+
+  <div class="project-card glass">
+
+    <div class="project-image">
+      🎬
+    </div>
+
+    <div class="project-content">
+
+      <h3>Movie Streaming Platform</h3>
+
+      <p>
+        Stylish movie streaming website with modern UI, categories, watchlists, login system, and responsive experience.
+      </p>
+
+      <div class="tags">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+        <span>PHP</span>
+      </div>
+
+      <div class="project-buttons">
+
+        <a href="https://github.com/mssithu18"
+        target="_blank"
+        class="project-btn github-btn">
+          GitHub
+        </a>
+
+        <a href="https://your-project.netlify.app"
+        target="_blank"
+        class="project-btn netlify-btn">
+          Live Demo
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PROJECT -->
+
+  <div class="project-card glass">
+
+    <div class="project-image">
+      🌐
+    </div>
+
+    <div class="project-content">
+
+      <h3>Modern Portfolio</h3>
+
+      <p>
+        Premium glassmorphism portfolio website with floating UI effects, responsive design, animations, and modern frontend development.
+      </p>
+
+      <div class="tags">
+        <span>Glass UI</span>
+        <span>Responsive</span>
+        <span>Animation</span>
+        <span>Frontend</span>
+      </div>
+
+      <div class="project-buttons">
+
+        <a href="https://github.com/mssithu18"
+        target="_blank"
+        class="project-btn github-btn">
+          GitHub
+        </a>
+
+        <a href="https://your-project.netlify.app"
+        target="_blank"
+        class="project-btn netlify-btn">
+          Live Demo
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="container">
+
+<div class="contact-card glass">
+
+  <h2>
+    Let's Build Something Amazing
+  </h2>
+
+  <p>
+    Open for freelance projects, web development, IT support, and creative collaborations.
+  </p>
+
+  <div class="contact-links">
+
+    <a href="mailto:mssithu18@gmail.com">
+      Email
+    </a>
+
+    <a href="https://github.com/mssithu18" target="_blank">
+      GitHub
+    </a>
+
+    <a href="https://linkedin.com/in/sithums" target="_blank">
+      LinkedIn
+    </a>
+
+    <a href="tel:+918300389812">
+      Call Me
+    </a>
+
+  </div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Sithu M.S • Designed & Developed by Sithu
+</footer>
+
+</body>
+</html>
